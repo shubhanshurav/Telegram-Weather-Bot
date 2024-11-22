@@ -1,11 +1,13 @@
 const { getWeather } = require("../utils/utils");
 
 const subscribers = new Map();
+
 const helpMessage = `
 *Welcome to the Weather Bot!*
 
 Commands:
 /start - Welcome message and basic instructions
+/userinfo - find user info like- userId, name
 /subscribe - Subscribe to receive weather updates
 /unsubscribe - Unsubscribe from weather updates
 /setcity - Update your city for weather updates
@@ -17,26 +19,28 @@ module.exports = {
     bot.sendMessage(msg.chat.id, helpMessage, { parse_mode: "Markdown" });
   },
 
-  // handleSubscribe: (bot, msg) => {
-  //   const chatId = msg.chat.id;
-  //   bot.sendMessage(chatId, "Enter your city for weather updates:");
-
-  //   bot.once("message", (response) => {
-  //     const city = response.text.trim();
-  //     subscribers.set(chatId, { subscribed: true, city });
-  //     bot.sendMessage(chatId, `Subscribed to weather updates for *${city}*!`, {
-  //       parse_mode: "Markdown",
-  //     });
-  //   });
-  // },
+  handleUserInfo: (bot, msg) => {
+    const chatId = msg.chat.id;
+    const Name = `${msg.chat.first_name} ${msg.chat.last_name}`;
+    bot.sendMessage(
+      chatId,
+      `Your ID:${chatId} \nName: ${Name}`,
+      { parse_mode: "Markdown" }
+    );
+  },
 
   handleSubscribe: async (bot, msg) => {
     const chatId = msg.chat.id;
+    const name = `${msg.chat.first_name} ${msg.chat.last_name}`;
     bot.sendMessage(chatId, "Enter your city for weather updates:");
 
     bot.once("message", async (response) => {
       const city = response.text.trim();
-      subscribers.set(chatId, { subscribed: true, city });
+      subscribers.set(chatId, {
+        subscribed: true,
+        city,
+        name,
+      });
 
       try {
         // Fetch weather immediately after subscribing

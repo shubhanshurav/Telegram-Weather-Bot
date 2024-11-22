@@ -2,6 +2,7 @@ const TelegramBot = require("node-telegram-bot-api");
 const { botToken, admins } = require("../config/config");
 const {
   handleStart,
+  handleUserInfo,
   handleSubscribe,
   handleUnsubscribe,
   handleSetCity,
@@ -24,6 +25,7 @@ const helpMessage = `
 
 Commands:
 /start - Welcome message and basic instructions
+/userinfo - find user info like- userId, name
 /subscribe - Subscribe to receive weather updates
 /unsubscribe - Unsubscribe from weather updates
 /setcity - Update your city for weather updates
@@ -32,6 +34,7 @@ Commands:
 
 // Commands
 bot.onText(/\/start/, (msg) => handleStart(bot, msg));
+bot.onText(/\/userinfo/, (msg) => handleUserInfo(bot, msg));
 bot.onText(/\/subscribe/, (msg) => handleSubscribe(bot, msg));
 bot.onText(/\/unsubscribe/, (msg) => handleUnsubscribe(bot, msg));
 bot.onText(/\/setcity/, (msg) => handleSetCity(bot, msg));

@@ -2,7 +2,7 @@ const { updateConfig } = require("../utils/utils");
 
 function handleAdmin(bot, msg, admins, subscribers) {
   const chatId = msg.chat.id;
-  console.log(admins);
+  // console.log(admins);
   if (!admins.has(chatId)) {
     bot.sendMessage(
       chatId,
@@ -124,8 +124,8 @@ function handleViewUsers(bot, msg, subscribers) {
   }
 
   let userList = "*Subscribed Users:*\n";
-  for (const [userId, { city }] of subscribers.entries()) {
-    userList += `ID: ${userId}, City: ${city || "Unknown"}\n`;
+  for (const [userId, { city, name }] of subscribers.entries()) {
+    userList += `Your ID: ${userId} \nCity: ${city || "Unknown"} \nName: ${name}\n\n  `;
   }
 
   bot.sendMessage(chatId, userList, { parse_mode: "Markdown" });
