@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const bot = require("./bot/bot");
+const { botToken } = require("./config/config");
+
 const port = process.env.PORT || 3000;
 // const webhookUrl = ` https://telegram-bot-for-weather-update.onrender.com/bot${botToken}`;
 const webhookUrl = `https://telegram-bot-for-weather-update.onrender.com/bot${botToken}`;
