@@ -4,11 +4,14 @@ const { botToken, botUrl } = require("./config/config");
 const TelegramBot = require("node-telegram-bot-api");
 const bot = new TelegramBot(botToken);
 const port = process.env.PORT || 3000;
+const webhookUrl = botUrl;
+console.log(botUrl)
 
-bot.setWebHook(botUrl);
+
+bot.setWebHook(webhookUrl);
 
 app.use(express.json());
-app.post(`/bot${botToken}`, (req, res) => {
+app.post(`/bot/${botToken}`, (req, res) => {
   bot.processUpdate(req.body);
   res.sendStatus(200);
 });
