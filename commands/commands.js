@@ -1,3 +1,5 @@
+const { getWeather } = require("../utils/utils");
+
 const subscribers = new Map();
 const helpMessage = `
 *Welcome to the Weather Bot!*
