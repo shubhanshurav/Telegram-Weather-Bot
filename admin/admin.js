@@ -1,8 +1,8 @@
-const { updateConfig } = require("./utils");
+const { updateConfig } = require("../utils/utils");
 
 function handleAdmin(bot, msg, admins, subscribers) {
   const chatId = msg.chat.id;
-console.log(admins)
+  console.log(admins);
   if (!admins.has(chatId)) {
     bot.sendMessage(
       chatId,
@@ -114,7 +114,6 @@ function handleUpdateApi(bot, msg, admins) {
     }
   });
 }
-
 
 function handleViewUsers(bot, msg, subscribers) {
   const chatId = msg.chat.id;

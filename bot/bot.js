@@ -1,12 +1,12 @@
 const TelegramBot = require("node-telegram-bot-api");
-const { botToken, admins } = require("./config");
+const { botToken, admins } = require("../config/config");
 const {
   handleStart,
   handleSubscribe,
   handleUnsubscribe,
   handleSetCity,
   subscribers,
-} = require("./commands");
+} = require("../commands/commands");
 const {
   handleAdmin,
   handleBlock,
@@ -14,8 +14,8 @@ const {
   handleUpdateApi,
   handleViewUsers,
   handleDelete,
-} = require("./admin");
-const { getWeather } = require("./utils");
+} = require("../admin/admin");
+const { getWeather } = require("../utils/utils");
 
 const bot = new TelegramBot(botToken, { polling: true });
 
@@ -71,7 +71,7 @@ async function sendWeatherUpdates() {
 
     try {
       const weather = await getWeather(city);
-    //   console.log(weather)
+      //   console.log(weather)
       if (weather && weather.weather && weather.main) {
         const message = `*Weather in ${weather.name}:*\n${weather.weather[0].description}, Temp: ${weather.main.temp}°C`;
         bot.sendMessage(chatId, message, { parse_mode: "Markdown" });

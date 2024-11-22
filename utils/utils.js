@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { weatherApiKey } = require("./config");
+const { weatherApiKey } = require("../config/config");
 
 async function getWeather(city) {
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
@@ -23,10 +23,10 @@ async function validateApiKey(apiKey) {
   try {
     const response = await axios.get(testUrl);
     if (response.status === 200) {
-      return true; 
+      return true;
     }
   } catch (error) {
-    return false; 
+    return false;
   }
 }
 
