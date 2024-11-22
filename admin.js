@@ -2,7 +2,7 @@ const { updateConfig } = require("./utils");
 
 function handleAdmin(bot, msg, admins, subscribers) {
   const chatId = msg.chat.id;
-
+console.log(admins)
   if (!admins.has(chatId)) {
     bot.sendMessage(
       chatId,

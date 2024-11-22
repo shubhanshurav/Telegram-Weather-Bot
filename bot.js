@@ -88,7 +88,7 @@ async function sendWeatherUpdates() {
 }
 
 // Use a reasonable interval for production (e.g., 3600000 ms = 1 hour)
-// setInterval(sendWeatherUpdates, 3600000);
-setInterval(sendWeatherUpdates, 5000);
+setInterval(sendWeatherUpdates, 3600000);
+// setInterval(sendWeatherUpdates, 5000);
 
 module.exports = bot;
