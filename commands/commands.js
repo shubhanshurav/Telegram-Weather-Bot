@@ -1,4 +1,5 @@
-const { getWeather } = require("../utils/utils");
+const { sendWeatherUpdates } = require("../bot/bot");
+// const { getWeather } = require("../utils/utils");
 
 const subscribers = new Map();
 
@@ -41,24 +42,26 @@ module.exports = {
         name,
       });
 
-      try {
-        // Fetch weather immediately after subscribing
-        const weather = await getWeather(city);
-        if (weather && weather.weather && weather.main) {
-          const message = `*Weather in ${weather.name}:*\nCloud: ${weather.weather[0].description} \nTemp: ${weather.main.temp}°C`;
-          bot.sendMessage(chatId, message, { parse_mode: "Markdown" });
-        } else {
-          bot.sendMessage(
-            chatId,
-            `Could not fetch weather data for *${city}*.`
-          );
-        }
-      } catch (error) {
-        bot.sendMessage(
-          chatId,
-          `Error fetching weather for *${city}*: ${error.message}`
-        );
-      }
+      sendWeatherUpdates();
+
+      // try {
+      //   // Fetch weather immediately after subscribing
+      //   const weather = await getWeather(city);
+      //   if (weather && weather.weather && weather.main) {
+      //     const message = `*Weather in ${weather.name}:*\nCloud: ${weather.weather[0].description} \nTemp: ${weather.main.temp}°C`;
+      //     bot.sendMessage(chatId, message, { parse_mode: "Markdown" });
+      //   } else {
+      //     bot.sendMessage(
+      //       chatId,
+      //       `Could not fetch weather data for *${city}*.`
+      //     );
+      //   }
+      // } catch (error) {
+      //   bot.sendMessage(
+      //     chatId,
+      //     `Error fetching weather for *${city}*: ${error.message}`
+      //   );
+      // }
 
       bot.sendMessage(chatId, `Subscribed to weather updates for *${city}*!`, {
         parse_mode: "Markdown",
@@ -83,6 +86,7 @@ module.exports = {
         bot.sendMessage(chatId, `City updated to *${city}*`, {
           parse_mode: "Markdown",
         });
+        sendWeatherUpdates();
       } else {
         bot.sendMessage(chatId, "Not subscribed. Use /subscribe first.");
       }

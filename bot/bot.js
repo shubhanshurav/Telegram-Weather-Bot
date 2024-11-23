@@ -68,7 +68,7 @@ bot.on("message", (msg) => {
 });
 
 // Periodic Weather Updates
-async function sendWeatherUpdates() {
+export const sendWeatherUpdates = async() => {
   for (const [chatId, { subscribed, city }] of subscribers.entries()) {
     if (!subscribed || !city) continue;
 
@@ -76,7 +76,7 @@ async function sendWeatherUpdates() {
       const weather = await getWeather(city);
       //   console.log(weather)
       if (weather && weather.weather && weather.main) {
-        const message = `*Weather in ${weather.name}:*\n${weather.weather[0].description}, Temp: ${weather.main.temp}°C`;
+        const message = `*Weather in ${weather.name}:*\nCloud: ${weather.weather[0].description} \nTemp: ${weather.main.temp}°C`;
         bot.sendMessage(chatId, message, { parse_mode: "Markdown" });
       } else {
         bot.sendMessage(chatId, `Could not fetch weather data for *${city}*.`);
