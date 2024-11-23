@@ -68,7 +68,7 @@ bot.on("message", (msg) => {
 });
 
 // Periodic Weather Updates
-export const sendWeatherUpdates = async() => {
+async function sendWeatherUpdates() {
   for (const [chatId, { subscribed, city }] of subscribers.entries()) {
     if (!subscribed || !city) continue;
 
@@ -94,4 +94,4 @@ export const sendWeatherUpdates = async() => {
 setInterval(sendWeatherUpdates, 3600000);
 // setInterval(sendWeatherUpdates, 5000);
 
-module.exports = bot;
+module.exports = {bot,sendWeatherUpdates};

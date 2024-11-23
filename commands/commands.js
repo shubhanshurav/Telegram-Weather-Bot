@@ -34,7 +34,7 @@ module.exports = {
     const name = `${msg.chat.first_name} ${msg.chat.last_name}`;
     bot.sendMessage(chatId, "Enter your city for weather updates:");
 
-    bot.once("message", async (response) => {
+    bot.once("message", (response) => {
       const city = response.text.trim();
       subscribers.set(chatId, {
         subscribed: true,
