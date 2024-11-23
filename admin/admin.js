@@ -62,7 +62,7 @@ function handleDelete(bot, msg, match, subscribers) {
   }
 }
 
-function handleUpdateApi(bot, msg, admins) {
+async function handleUpdateApi(bot, msg, admins) {
   const chatId = msg.chat.id;
   if (!admins.has(chatId)) {
     bot.sendMessage(chatId, "You are not authorized to update the API keys.");
@@ -78,24 +78,35 @@ function handleUpdateApi(bot, msg, admins) {
   );
 
   // Listen for the next message only from the same admin
-  bot.once("message", (response) => {
+  bot.once("message", async (response) => {
     // Ensure the response is from the same user
     if (response.chat.id !== chatId) return;
 
     const [key, value] = response.text.split("=");
     if (key && value) {
       try {
-        // Update the configuration
-        updateConfig(key.trim(), value.trim());
+        // Await the configuration update to ensure validation completes
+        const success = await updateConfig(key.trim(), value.trim());
 
-        // Notify the admin about the successful update
-        bot.sendMessage(
-          chatId,
-          `The setting *${key}* has been updated successfully.`,
-          {
-            parse_mode: "Markdown",
-          }
-        );
+        if (success) {
+          // Notify the admin about the successful update
+          bot.sendMessage(
+            chatId,
+            `The setting *${key}* has been updated successfully.`,
+            {
+              parse_mode: "Markdown",
+            }
+          );
+        } else {
+          // Notify about invalid API key or failed update
+          bot.sendMessage(
+            chatId,
+            `Failed to update the setting *${key}*. Please check your API key and try again.`,
+            {
+              parse_mode: "Markdown",
+            }
+          );
+        }
       } catch (error) {
         // Handle any errors from `updateConfig`
         bot.sendMessage(
@@ -124,7 +135,9 @@ function handleViewUsers(bot, msg, subscribers) {
 
   let userList = "*Subscribed Users:*\n";
   for (const [userId, { city, name }] of subscribers.entries()) {
-    userList += `Your ID: ${userId} \nCity: ${city || "Unknown"} \nName: ${name}\n\n  `;
+    userList += `Your ID: ${userId} \nCity: ${
+      city || "Unknown"
+    } \nName: ${name}\n\n  `;
   }
 
   bot.sendMessage(chatId, userList, { parse_mode: "Markdown" });
