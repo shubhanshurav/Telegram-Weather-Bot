@@ -7,6 +7,7 @@ const {
   handleUnsubscribe,
   handleSetCity,
   subscribers,
+  getWeatherInfo, // Corrected spelling for consistency
 } = require("../commands/commands");
 const {
   handleAdmin,
@@ -25,7 +26,7 @@ const helpMessage = `
 
 Commands:
 /start - Welcome message and basic instructions
-/userinfo - find user info like- userId, name
+/userinfo - Find user info like User ID, Name
 /subscribe - Subscribe to receive weather updates
 /unsubscribe - Unsubscribe from weather updates
 /setcity - Update your city for weather updates
@@ -35,11 +36,12 @@ Commands:
 // Commands
 bot.onText(/\/start/, (msg) => handleStart(bot, msg));
 bot.onText(/\/userinfo/, (msg) => handleUserInfo(bot, msg));
-bot.onText(/\/subscribe/, (msg) => handleSubscribe(bot, msg));
+bot.onText(/\/subscribe/, (msg) => handleSubscribe(bot, msg, getWeather));
 bot.onText(/\/unsubscribe/, (msg) => handleUnsubscribe(bot, msg));
-bot.onText(/\/setcity/, (msg) => handleSetCity(bot, msg));
+bot.onText(/\/setcity/, (msg) => handleSetCity(bot, msg, getWeather));
 bot.onText(/\/admin/, (msg) => handleAdmin(bot, msg, admins, subscribers));
 
+// Admin-specific commands
 bot.onText(/\/block (.+)/, (msg, match) =>
   handleBlock(bot, msg, match, subscribers)
 );
@@ -73,25 +75,16 @@ async function sendWeatherUpdates() {
     if (!subscribed || !city) continue;
 
     try {
-      const weather = await getWeather(city);
-      //   console.log(weather)
-      if (weather && weather.weather && weather.main) {
-        const message = `*Weather in ${weather.name}:*\nCloud: ${weather.weather[0].description} \nTemp: ${weather.main.temp}°C`;
-        bot.sendMessage(chatId, message, { parse_mode: "Markdown" });
-      } else {
-        bot.sendMessage(chatId, `Could not fetch weather data for *${city}*.`);
-      }
+      await getWeatherInfo(bot, chatId, city, getWeather);
     } catch (error) {
-      bot.sendMessage(
-        chatId,
-        `Error fetching weather for *${city}*: ${error.message}`
+      console.error(
+        `Error sending weather update to chat ID ${chatId}:`,
+        error.message
       );
     }
   }
 }
 
-// Use a reasonable interval for production (e.g., 3600000 ms = 1 hour)
-setInterval(sendWeatherUpdates, 3600000);
-// setInterval(sendWeatherUpdates, 5000);
+setInterval(sendWeatherUpdates, 3600000); // 1 hour interval
 
-module.exports = {bot,sendWeatherUpdates};
+module.exports = bot;
