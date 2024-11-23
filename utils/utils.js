@@ -1,6 +1,16 @@
 const axios = require("axios");
 const { WEATHER_API_KEY } = require("../config/config");
 
+
+const fs = require("fs");
+const path = require("path");
+
+function saveConfig(config) {
+  const configPath = path.join(__dirname, "../config/config.json");
+  fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+  console.log("Configuration saved successfully.");
+}
+
 async function getWeather(city) {
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
     city
@@ -36,7 +46,7 @@ async function updateConfig(key, value) {
     const isValid = await validateApiKey(value);
     if (isValid) {
       process.env.WEATHER_API_KEY = value;
-      saveConfig({ weatherApiKey: value }); // Save to persistent storage
+      saveConfig({ weatherApiKey: value }); 
       console.log("Weather API key updated successfully.");
       return true;
     } else {

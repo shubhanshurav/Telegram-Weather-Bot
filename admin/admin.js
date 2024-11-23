@@ -88,6 +88,7 @@ async function handleUpdateApi(bot, msg, admins) {
         // Await the configuration update to ensure validation completes
         const success = await updateConfig(key.trim(), value.trim());
 
+        console.log(success)
         if (success) {
           // Notify the admin about the successful update
           bot.sendMessage(
