@@ -40,6 +40,7 @@ function handleBlock(bot, msg, match, subscribers) {
 
 function handleUnblock(bot, msg, match, subscribers) {
   const chatId = msg.chat.id;
+  const name = msg.chat.first_name || "";
   const userId = parseInt(match[1], 10);
 
   if (!userId || isNaN(userId)) {
@@ -50,12 +51,10 @@ function handleUnblock(bot, msg, match, subscribers) {
   if (subscribers.has(userId)) {
     bot.sendMessage(chatId, `User ${userId} is already unblocked.`);
   } else {
-    subscribers.set(userId, { subscribed: true});
+    subscribers.set(userId, { subscribed: true, name});
     bot.sendMessage(chatId, `User ${userId} has been unblocked.`);
   }
 }
-
-
 
 function handleDelete(bot, msg, match, subscribers) {
   const chatId = msg.chat.id;
@@ -95,7 +94,7 @@ async function handleUpdateApi(bot, msg, admins) {
         // Await the configuration update to ensure validation completes
         const success = await updateConfig(key.trim(), value.trim());
 
-        console.log(success)
+        console.log(success);
         if (success) {
           // Notify the admin about the successful update
           bot.sendMessage(
@@ -139,11 +138,13 @@ function handleViewUsers(bot, msg, subscribers) {
   }
 
   let userList = "*Subscribed Users:*\n";
-  for (const [userId, { city, name }] of subscribers.entries()) {
-    userList += `Your ID: ${userId} \nCity: ${
-      city || "Unknown"
-    } \nName: ${name}\n\n  `;
-  }
+for (const [userId, { city, name }] of subscribers.entries()) {
+  userList += `Your ID: ${userId}\n`;
+  if (name) userList += `Name: ${name}\n`;
+  if (city) userList += `City: ${city}\n`;
+  userList += `\n`; 
+}
+
 
   bot.sendMessage(chatId, userList, { parse_mode: "Markdown" });
 }
