@@ -6,7 +6,6 @@ const helpMessage = `
 *Welcome to the Weather Bot!*
 
 Commands:
-/start - Welcome message and basic instructions
 /userinfo - find user info like- userId, name
 /subscribe - Subscribe to receive weather updates
 /unsubscribe - Unsubscribe from weather updates
@@ -46,7 +45,7 @@ module.exports = {
         // Fetch weather immediately after subscribing
         const weather = await getWeather(city);
         if (weather && weather.weather && weather.main) {
-          const message = `*Weather in ${weather.name}:*\n${weather.weather[0].description}, Temp: ${weather.main.temp}°C`;
+          const message = `*Weather in ${weather.name}:*\nCloud: ${weather.weather[0].description} \nTemp: ${weather.main.temp}°C`;
           bot.sendMessage(chatId, message, { parse_mode: "Markdown" });
         } else {
           bot.sendMessage(
