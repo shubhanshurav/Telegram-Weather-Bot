@@ -1,5 +1,5 @@
 const TelegramBot = require("node-telegram-bot-api");
-const { botToken, admins } = require("../config/config");
+const { BOT_TOKEN, ADMINS } = require("../config/config");
 const {
   handleStart,
   handleUserInfo,

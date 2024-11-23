@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { WEATHER_API_KEY,BOT_TOKEN } = require("../config/config");
+const { WEATHER_API_KEY } = require("../config/config");
 
 async function getWeather(city) {
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
@@ -35,7 +35,7 @@ function updateConfig(key, value) {
     // Validate the API key before updating
     validateApiKey(value).then((isValid) => {
       if (isValid) {
-        process.env.WEATHER_API_KEY = value; // Update the environment variable dynamically
+        process.env.WEATHER_API_KEY = value; 
         console.log(`Updated ${key} to ${value}`);
         return true;
       } else {
