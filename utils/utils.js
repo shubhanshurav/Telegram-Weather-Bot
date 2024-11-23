@@ -1,10 +1,10 @@
 const axios = require("axios");
-const { weatherApiKey } = require("../config/config");
+const { WEATHER_API_KEY,BOT_TOKEN } = require("../config/config");
 
 async function getWeather(city) {
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
     city
-  )}&appid=${weatherApiKey}&units=metric`;
+  )}&appid=${WEATHER_API_KEY}&units=metric`;
 
   try {
     const response = await axios.get(weatherUrl);
@@ -31,7 +31,7 @@ async function validateApiKey(apiKey) {
 }
 
 function updateConfig(key, value) {
-  if (key === "WEATHER_API_KEY") {
+  if (key === "WEATHER_API_KEY" || key === "BOT_TOKEN") {
     // Validate the API key before updating
     validateApiKey(value).then((isValid) => {
       if (isValid) {
