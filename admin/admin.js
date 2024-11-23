@@ -50,7 +50,7 @@ function handleUnblock(bot, msg, match, subscribers) {
   if (subscribers.has(userId)) {
     bot.sendMessage(chatId, `User ${userId} is already unblocked.`);
   } else {
-    subscribers.set(userId, { subscribed: true, city: "Unknown" });
+    subscribers.set(userId, { subscribed: true});
     bot.sendMessage(chatId, `User ${userId} has been unblocked.`);
   }
 }
