@@ -42,19 +42,19 @@ function handleUnblock(bot, msg, match, subscribers) {
   const chatId = msg.chat.id;
   const userId = parseInt(match[1], 10);
 
+  if (!userId || isNaN(userId)) {
+    bot.sendMessage(chatId, "Invalid user ID provided.");
+    return;
+  }
+
   if (subscribers.has(userId)) {
-    const user = subscribers.get(userId);
-    if (user.subscribed) {
-      bot.sendMessage(chatId, `User ${userId} is already unblocked.`);
-    } else {
-      user.subscribed = true;
-      subscribers.set(userId, user); 
-      bot.sendMessage(chatId, `User ${userId} has been unblocked.`);
-    }
+    bot.sendMessage(chatId, `User ${userId} is already unblocked.`);
   } else {
-    bot.sendMessage(chatId, `User ${userId} does not exist in the system.`);
+    subscribers.set(userId, { subscribed: true, city: "Unknown" });
+    bot.sendMessage(chatId, `User ${userId} has been unblocked.`);
   }
 }
+
 
 
 function handleDelete(bot, msg, match, subscribers) {

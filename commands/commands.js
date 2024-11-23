@@ -65,15 +65,20 @@ const handleSubscribe = async (bot, msg, getWeather) => {
   });
 };
 
-const handleUnsubscribe = (bot, msg) => {
-  const { chatId } = getUserInfo(msg);
+const handleUnsubscribe = (bot, msg, subscribers) => {
+  const chatId = msg.chat.id;
+
   if (subscribers.has(chatId)) {
     subscribers.delete(chatId);
-    bot.sendMessage(chatId, "Unsubscribed from weather updates.");
+    bot.sendMessage(
+      chatId,
+      "You have successfully unsubscribed from weather updates."
+    );
   } else {
     bot.sendMessage(chatId, "You are not subscribed to any updates.");
   }
 };
+
 
 const handleSetCity = (bot, msg, getWeather) => {
   const { chatId } = getUserInfo(msg);
