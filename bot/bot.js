@@ -19,7 +19,7 @@ const {
 } = require("../admin/admin");
 const { getWeather } = require("../utils/utils");
 
-const bot = new TelegramBot(botToken, { polling: true });
+const bot = new TelegramBot(BOT_TOKEN, { polling: true });
 
 const helpMessage = `
 *Welcome to the Weather Bot!*
@@ -39,7 +39,7 @@ bot.onText(/\/userinfo/, (msg) => handleUserInfo(bot, msg));
 bot.onText(/\/subscribe/, (msg) => handleSubscribe(bot, msg, getWeather));
 bot.onText(/\/unsubscribe/, (msg) => handleUnsubscribe(bot, msg));
 bot.onText(/\/setcity/, (msg) => handleSetCity(bot, msg, getWeather));
-bot.onText(/\/admin/, (msg) => handleAdmin(bot, msg, admins, subscribers));
+bot.onText(/\/admin/, (msg) => handleAdmin(bot, msg, ADMINS, subscribers));
 
 // Admin-specific commands
 bot.onText(/\/block (.+)/, (msg, match) =>
@@ -48,7 +48,7 @@ bot.onText(/\/block (.+)/, (msg, match) =>
 bot.onText(/\/unblock (.+)/, (msg, match) =>
   handleUnblock(bot, msg, match, subscribers)
 );
-bot.onText(/\/updateapi/, (msg) => handleUpdateApi(bot, msg, admins));
+bot.onText(/\/updateapi/, (msg) => handleUpdateApi(bot, msg, ADMINS));
 bot.onText(/\/viewusers/, (msg) => handleViewUsers(bot, msg, subscribers));
 bot.onText(/\/delete (.+)/, (msg, match) =>
   handleDelete(bot, msg, match, subscribers)
