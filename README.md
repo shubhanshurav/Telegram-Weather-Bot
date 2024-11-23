@@ -1,6 +1,12 @@
 # Telegram Weather Bot
 
-    A Telegram bot that provides weather updates and includes an admin panel for managing users and API configurations dynamically. Built using Node.js, the bot interacts with the OpenWeatherMap API to fetch weather data and allows admins to manage user subscriptions and bot settings.
+A Telegram bot that provides weather updates and includes an admin panel for managing users and API configurations dynamically. Built using Node.js, the bot interacts with the OpenWeatherMap API to fetch weather data and allows admins to manage user subscriptions and bot settings.
+
+ 
+
+   https://github.com/user-attachments/assets/fb802d00-de52-45c1-ab64-8692197e6752
+
+
 
 ## Features
 
@@ -34,17 +40,19 @@ Admins can access a set of powerful commands:
 ## Installation
 
 1. Clone the repository:
-   ```bash
+   ```
    git clone https://github.com/your-repo/telegram-weather-bot.git
    cd telegram-weather-bot
-
+   ```
+   
 2. Create a .env file in the root directory and add your credentials:
-   ```bash
+   ```
     TELEGRAM_BOT_TOKEN=your-telegram-bot-token
     WEATHER_API_KEY=your-weather-api-key
-
+   ```
 
 3. Start the bot:
 
-    ```bash
+    ```
       node index.js
+    ```
