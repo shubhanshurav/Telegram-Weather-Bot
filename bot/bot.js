@@ -7,7 +7,7 @@ const {
   handleUnsubscribe,
   handleSetCity,
   subscribers,
-  getWeatherInfo, // Corrected spelling for consistency
+  getWeatherInfo, 
 } = require("../commands/commands");
 const {
   handleAdmin,
@@ -33,7 +33,7 @@ Commands:
 /admin - (Admins only) Access the admin panel
 `;
 
-// Commands
+// all commands name
 bot.onText(/\/start/, (msg) => handleStart(bot, msg));
 bot.onText(/\/userinfo/, (msg) => handleUserInfo(bot, msg));
 bot.onText(/\/subscribe/, (msg) => handleSubscribe(bot, msg, getWeather));
@@ -41,7 +41,7 @@ bot.onText(/\/unsubscribe/, (msg) => handleUnsubscribe(bot, msg));
 bot.onText(/\/setcity/, (msg) => handleSetCity(bot, msg, getWeather));
 bot.onText(/\/admin/, (msg) => handleAdmin(bot, msg, ADMINS, subscribers));
 
-// Admin-specific commands
+// admin commands
 bot.onText(/\/block (.+)/, (msg, match) =>
   handleBlock(bot, msg, match, subscribers)
 );
@@ -54,10 +54,10 @@ bot.onText(/\/delete (.+)/, (msg, match) =>
   handleDelete(bot, msg, match, subscribers)
 );
 
-// Handle greetings like "hi", "hello", or "hey"
+// handle messages like "hi", "hello", or "hey"
 bot.on("message", (msg) => {
   const chatId = msg.chat.id;
-  const text = msg.text?.toLowerCase(); // Ensure `msg.text` exists
+  const text = msg.text?.toLowerCase(); 
 
   if (
     text &&
@@ -69,7 +69,6 @@ bot.on("message", (msg) => {
   }
 });
 
-// Periodic Weather Updates
 async function sendWeatherUpdates() {
   for (const [chatId, { subscribed, city }] of subscribers.entries()) {
     if (!subscribed || !city) continue;
@@ -85,6 +84,6 @@ async function sendWeatherUpdates() {
   }
 }
 
-setInterval(sendWeatherUpdates, 3600000); // 1 hour interval
+setInterval(sendWeatherUpdates, 3600000);
 
 module.exports = bot;

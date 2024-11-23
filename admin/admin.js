@@ -99,7 +99,6 @@ async function handleUpdateApi(bot, msg, admins) {
             }
           );
         } else {
-          // Notify about invalid API key or failed update
           bot.sendMessage(
             chatId,
             `Failed to update the setting *${key}*. Please check your API key and try again.`,
@@ -109,14 +108,12 @@ async function handleUpdateApi(bot, msg, admins) {
           );
         }
       } catch (error) {
-        // Handle any errors from `updateConfig`
         bot.sendMessage(
           chatId,
           `An error occurred while updating: ${error.message}`
         );
       }
     } else {
-      // Inform the user about incorrect format
       bot.sendMessage(
         chatId,
         "Invalid format. Please use the format: `KEY_NAME=NEW_VALUE`",

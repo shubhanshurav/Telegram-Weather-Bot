@@ -1,6 +1,5 @@
 const subscribers = new Map();
 
-// Helper functions
 const sendHelpMessage = (bot, chatId) => {
   const helpMessage = `
   *Welcome to the Weather Bot!*
@@ -94,7 +93,6 @@ const handleSetCity = (bot, msg, getWeather) => {
   });
 };
 
-// Exports
 module.exports = {
   handleStart,
   handleUserInfo,
