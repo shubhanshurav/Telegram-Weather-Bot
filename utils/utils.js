@@ -19,9 +19,10 @@ async function getWeather(city) {
 
 async function validateApiKey(apiKey) {
   const testUrl = `https://api.openweathermap.org/data/2.5/weather?q=London&appid=${apiKey}&units=metric`;
-
+console.log(testUrl)
   try {
     const response = await axios.get(testUrl);
+    console.log(response)
     if (response.status === 200) {
       return true;
     }
@@ -33,9 +34,11 @@ async function validateApiKey(apiKey) {
 function updateConfig(key, value) {
   if (key === "WEATHER_API_KEY" || key === "BOT_TOKEN") {
     // Validate the API key before updating
+    console.log(value)
     validateApiKey(value).then((isValid) => {
       if (isValid) {
-        process.env.WEATHER_API_KEY = value; 
+        // WEATHER_API_KEY = value; 
+        process.env.WEATHER_API_KEY = value;
         console.log(`Updated ${key} to ${value}`);
         return true;
       } else {

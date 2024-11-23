@@ -64,7 +64,6 @@ function handleDelete(bot, msg, match, subscribers) {
 
 function handleUpdateApi(bot, msg, admins) {
   const chatId = msg.chat.id;
-
   if (!admins.has(chatId)) {
     bot.sendMessage(chatId, "You are not authorized to update the API keys.");
     return;
