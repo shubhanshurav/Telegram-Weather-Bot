@@ -2,9 +2,8 @@
 
 A Telegram bot that provides weather updates and includes an admin panel for managing users and API configurations dynamically. Built using Node.js, the bot interacts with the OpenWeatherMap API to fetch weather data and allows admins to manage user subscriptions and bot settings.
 
- 
 
-   https://github.com/user-attachments/assets/fb802d00-de52-45c1-ab64-8692197e6752
+  https://github.com/user-attachments/assets/911ffede-4800-4b5c-acb6-a38a839f1f0e
 
 
 
