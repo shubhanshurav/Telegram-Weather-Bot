@@ -45,7 +45,7 @@ async function validateBotToken(token) {
     const response = await axios.get(
       `https://api.telegram.org/bot${token}/getMe`
     );
-console.log(response.data)
+// console.log(response.data)
     if (response.data.ok) {
       // Bot token is valid
       console.log("Bot token is valid!");

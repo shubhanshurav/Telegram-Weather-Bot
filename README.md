@@ -50,7 +50,13 @@ Admins can access a set of powerful commands:
     WEATHER_API_KEY=your-weather-api-key
    ```
 
-3. Start the bot:
+
+3. Config file:
+   ```
+    ADMINS: new Set([Replace with your admin IDs])
+   ```
+
+4. Start the bot:
 
     ```
       node index.js
